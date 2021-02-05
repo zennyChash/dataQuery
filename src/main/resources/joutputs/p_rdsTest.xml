@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<joutput id="rds_test1" name="测试关系型数据库1"  description=""> 
+		<jTemplate>
+		<![CDATA[
+			{
+			#if($proList&&$proList.rows.size()>0)
+				"projects":[
+					#foreach($row in $proList.rows)
+	   					{"id":"$!{row.id}","pname":"$!{row.pname}"}#if($velocityCount != $proList.rows.size()),#end
+	   				#end
+				],
+			#end
+			#if($test2&&$test2.rows.size()>0)
+				"contracts":[
+					#foreach($row in $test2.rows)
+						{"htbh":"$!{row.htbh}","mc":"$!{row.mc}","htqdje":"$!{row.htqdje}"}#if($velocityCount != $test2.rows.size()),#end
+					#end
+				]		
+			#end
+			}
+		]]>
+		</jTemplate>
+		<vDs name="proList" refDtSrc="test1" paging="1">
+			<filter name = "EID" refParam="entercode"/>
+			<filter name = "proName" refParam="proname"/>
+		</vDs>
+		<vDs name="test2" paging="1">
+			<filter name = "pid" refParam="proid"/>
+		</vDs>
+	</joutput>
+	<joutput id="rds_test2" name="测试关系型数据库2"  description=""> 
+		<jTemplate>
+		<![CDATA[
+			{
+			#if($test2&&$test2.rows.size()>0)
+				"htbh":"$!{test2.rows[0].htbh}",
+				"mc":"$!{test2.rows[0].mc}",
+				"htypezje":"$!{test2.rows[0].htypezje}",
+				"jsdw":"$!{test2.rows[0].jsdw}",
+				"htqdje":"$!{test2.rows[0].htqdje}"
+			#end
+			}
+		]]>
+		</jTemplate>
+		<vDs name="test2" paging="1">
+			<filter name = "pid" refParam="proid"/>
+		</vDs>
+	</joutput>
+</pages>
+
